@@ -2,7 +2,7 @@
 
 > An interactive web application for pet enthusiasts to add, view, and comment on pets in the shop. Built with ASP.NET Core MVC, SQL Database, and modern web technologies.
 
-![Pet Shop Image](path/to/project-image.png)
+
 
 ## Table of Contents
 
