@@ -1,0 +1,29 @@
+﻿@using PetShop.Models.Dtos
+@model IEnumerable<AnimalDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h5>The two most highly rated animals for today are : </h5>
+<table class="table table-hover table-dark table-bordered">
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th>@Html.DisplayNameFor(a => a.Name)</th>
+            <th>@Html.DisplayNameFor(a => a.Description)</th>
+            <th>Number of comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td><img src="@animal.PhotoUri" alt="@animal.Name" class="img-thumbnail" /></td>
+                <td>@animal.Name</td>
+                <td>@animal.Description</td>
+                <td>@animal.Comments.Count</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

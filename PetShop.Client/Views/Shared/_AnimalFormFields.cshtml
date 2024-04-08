@@ -1,0 +1,91 @@
+﻿@using PetShop.Models.Dtos
+@model PetShop.Models.Dtos.AnimalDto
+
+
+
+
+<form enctype="multipart/form-data" id="myForm" method="post" onsubmit="sendForm(event)" asp-controller="Administrator">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Name" class="form-label"></label>
+    <div class="input-group mb-2">
+
+        <input required asp-for="Name" id="nameInput" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div id="nameInputHelperBlock" class="form-text">
+        The name must contain only letters
+    </div>
+
+    <label asp-for="Age" class="form-label"></label>
+    <div class="input-group mb-2">
+
+        <input required asp-for="Age" id="ageInput" class="form-control" aria-describedby="ageInputBlock">
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div id="ageInputHelperBlock" class="form-text">
+        The age is in years and must contain only numbers
+    </div>
+
+    <label asp-for="Description" class="form-label"></label>
+    <div class="input-group mb-2">
+        <input asp-for="Description" id="descriptionInput" class="form-control" aria-describedby="descriptionInputBlock">
+    </div>
+    <div id="descriptionInputHelperBlock" class="form-text">
+        up to 500 characters
+    </div>
+
+    <label class="form-label" asp-for="AnimalPhoto"></label>
+    <div class="input-group mb-4">
+        @if(Model.PhotoUri != null)
+        {
+            <input asp-for="AnimalPhoto" accept=".JPEG, .JPG, .PNG" class="form-control" id="inputPhoto" style="max-width:400px; max-height:37px">
+            <img id="photoUri" src="@Model.PhotoUri" alt="Animal Photo" style="max-width: 150px; max-height: 150px; margin-inline:100px" />
+        }
+        else
+        {
+            <input asp-for="AnimalPhoto" accept=".JPEG, .JPG, .PNG" class="form-control" id="inputPhoto" style="max-width:400px; max-height:37px">
+        }
+        <span asp-validation-for="AnimalPhoto" class="text-danger"></span>
+    </div>
+
+    <div class="input-group mb-2">
+        <label class="input-group-text" asp-for="CategoryId">Category</label>
+        <select required asp-for="CategoryId" class="form-control" id="inputCategories" asp-items="ViewBag.Categories">
+            @if (Model != null && Model.CategoryId > 0)
+            {
+                var categoryId = Model.CategoryId.ToString();
+                var categories = ViewBag.Categories as List<SelectListItem>;
+                var categoryName = categories?.FirstOrDefault(c => c.Value == categoryId)?.Text;
+                <option selected>@categoryName</option>
+            }
+            else
+            {
+                <option selected>Choose category</option>
+            }
+        </select>
+        
+    </div>
+    <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+    <div class="form-control">
+        <input type="submit" value="Submit" class="btn btn-primary m" />
+        <input type="reset" value="Reset" class="btn btn-primary" />
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Administrator">Back</a>
+        <input type="hidden" asp-for="AnimalId" />
+        <input type="hidden" asp-for="PhotoUri" />
+    </div>
+</form>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#inputCategories').change(function () {
+
+                var categoryName = $(this).find('option:selected').text();
+                $('#categoryNameInput').val(categoryName);
+            });
+        });
+    </script>
+
+}

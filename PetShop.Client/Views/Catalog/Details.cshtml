@@ -1,0 +1,48 @@
+﻿@model PetShop.Models.Dtos.AnimalDto
+@{
+    ViewData["Title"] = "Pet Details";
+}
+<form id="commentForm" action="/Catalog/AddComment" method="post">
+    <div class="input-group mb-3 mt-3">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addComment">Submit</button>
+        <input type="text" class="form-control" name="textToAdd" placeholder="Add your comment here" aria-label="Text area to add comments" aria-describedby="button-addComment">
+        <input type="hidden" name="id" value="@Model.AnimalId"> 
+    </div>
+</form>
+
+
+
+<table class="table table-light table-striped table-bordered">
+    <thead>
+        <tr>  
+            <th>Name</th>
+            <th>@Html.DisplayFor(a => a.Name)</th>
+        </tr>
+        <tr>
+            <th>Age (in years)</th>
+            <th>@Html.DisplayFor(a=>a.Age)</th>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <th>@Html.DisplayFor(a=>a.Description)</th>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <th>@Html.DisplayFor(a=>a.Category.Name)</th>
+        </tr>
+        <tr>
+            <th>Comments on this pet</th>
+            <th>@foreach(var comment in Model.Comments)
+                {
+                    <ul>
+                        <li>@comment.Text</li>
+                    </ul>
+                }
+            </th>
+        </tr>
+    </thead>
+ 
+</table>
+
+
+

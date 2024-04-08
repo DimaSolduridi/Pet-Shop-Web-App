@@ -1,0 +1,30 @@
+﻿@using PetShop.Models.Dtos
+@model PetShop.Models.Dtos.AnimalDto
+@{
+    ViewData["Title"] = "EditAnimal";
+}
+
+<h1>Edit Animal</h1>
+
+<partial name="_AnimalFormFields" model="@Model">
+
+    @section Scripts {
+        <script>
+            function sendForm(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Do you want to save changes?',
+                    icon: 'question',
+                    confirmButtonText: 'Yes',
+                    showCancelButton: true
+                    
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        const myForm = document.getElementById('myForm');
+                        myForm.submit();
+                    }
+                })
+            }
+        </script>
+    }
